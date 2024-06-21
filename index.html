@@ -3,7 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Upload, Text Entry, and Download</title>
+    <title>File Upload, Text Entry, and Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background: #fff;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        input[type="text"],
+        input[type="password"],
+        input[type="file"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background: #007BFF;
+            color: #fff;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .message {
+            margin-top: 10px;
+            display: none;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        ul li a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        ul li a:hover {
+            text-decoration: underline;
+        }
+        #countdown {
+            font-weight: bold;
+        }
+    </style>
     <script>
         function redirectToUrl() {
             const urlInput = document.getElementById('url');
@@ -34,6 +103,80 @@
                 }
             }, 1000);
         }
+
+        let storedUsername = '';
+        let storedPassword = '';
+
+        function login() {
+            const setUsername = document.getElementById('setUsername').value;
+            const setPassword = document.getElementById('setPassword').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const message = document.getElementById('message');
+
+            if (setUsername === '' || setPassword === '') {
+                message.textContent = 'Please set both username and password.';
+                message.style.display = 'block';
+                return;
+            } else {
+                storedUsername = setUsername;
+                storedPassword = setPassword;
+            }
+
+            if (username === '' || password === '') {
+                message.textContent = 'Username and password fields cannot be empty.';
+                message.style.display = 'block';
+            } else if (username !== storedUsername || password !== storedPassword) {
+                message.textContent = 'Incorrect username or password.';
+                message.style.display = 'block';
+            } else {
+                message.textContent = 'Login successful! You will be redirected to google.com.';
+                message.style.color = 'green';
+                message.style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = 'https://www.google.com';
+                }, 2000);
+            }
+        }
+
+        function loginWithDialog() {
+            const setUsername = document.getElementById('setUsername').value;
+            const setPassword = document.getElementById('setPassword').value;
+            const message = document.getElementById('message');
+
+            if (storedUsername === '' && storedPassword === '') {
+                if (setUsername === '' || setPassword === '') {
+                    message.textContent = 'Please set both username and password.';
+                    message.style.display = 'block';
+                    return;
+                } else {
+                    storedUsername = setUsername;
+                    storedPassword = setPassword;
+                    message.textContent = 'Credentials set successfully. Please log in now.';
+                    message.style.color = 'green';
+                    message.style.display = 'block';
+                    return;
+                }
+            }
+
+            const username = prompt("Please enter your username:");
+            const password = prompt("Please enter your password:");
+
+            if (username === null || password === null || username === '' || password === '') {
+                message.textContent = 'Username and password fields cannot be empty.';
+                message.style.display = 'block';
+            } else if (username !== storedUsername || password !== storedPassword) {
+                message.textContent = 'Incorrect username or password.';
+                message.style.display = 'block';
+            } else {
+                message.textContent = 'Login successful! You will be redirected to google.com.';
+                message.style.color = 'green';
+                message.style.display = 'block';
+                setTimeout(() => {
+                    window.location.href = 'https://www.google.com';
+                }, 2000);
+            }
+        }
     </script>
 </head>
 <body>
@@ -41,7 +184,6 @@
     <form action="/upload" method="post" enctype="multipart/form-data">
         <label for="file">Choose a file to upload:</label>
         <input type="file" id="file" name="file"><br><br>
-      
         <input type="submit" value="Submit">
     </form>
 
@@ -68,5 +210,20 @@
         <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/supported%20files/pdf_file.pdf" download>Download PDF file</a></li>
         <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/supported%20files/doc%20file.doc" download>Download DOC file</a></li>
     </ul>
+
+    <h1>Login</h1>
+    <form>
+        <label for="setUsername">Set Username:</label>
+        <input type="text" id="setUsername" placeholder="Set Username">
+        <label for="setPassword">Set Password:</label>
+        <input type="password" id="setPassword" placeholder="Set Password">
+        <label for="username">Username:</label>
+        <input type="text" id="username" placeholder="Username">
+        <label for="password">Password:</label>
+        <input type="password" id="password" placeholder="Password">
+        <button type="button" onclick="login()">Login</button>
+        <button type="button" onclick="loginWithDialog()">Login with Dialog</button>
+        <div class="message" id="message"></div>
+    </form>
 </body>
 </html>
