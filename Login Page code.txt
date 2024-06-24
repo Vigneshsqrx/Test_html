@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<body>
+    <h2>Set Username and Password</h2>
+    <form id="setCredentialsForm">
+        <label for="setUsername">Set Username:</label>
+        <input type="text" id="setUsername" name="setUsername" required><br><br>
+        <label for="setPassword">Set Password:</label>
+        <input type="text" id="setPassword" name="setPassword" required><br><br>
+        <button type="button" onclick="setCredentials()">Set Credentials</button>
+    </form>
+
+    <h2>Login</h2>
+    <form id="loginForm" action="https://www.google.com" method="get">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        <label for="password">Password:</label>
+        <input type="text" id="password" name="password" required><br><br>
+        <input type="checkbox" id="showPassword" checked onclick="togglePasswordVisibility()"> Show Password<br><br>
+        <button type="submit" onclick="return validateCredentials()">Login</button>
+    </form>
+
+    <button id="promptLoginBtn">Login with Prompt</button>
+
+    <script>
+        function setCredentials() {
+            var setUsername = document.getElementById('setUsername').value;
+            var setPassword = document.getElementById('setPassword').value;
+
+            localStorage.setItem('username', setUsername);
+            localStorage.setItem('password', setPassword);
+
+            alert('Credentials set successfully!');
+        }
+
+        function validateCredentials() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            var storedUsername = localStorage.getItem('username');
+            var storedPassword = localStorage.getItem('password');
+
+            if (username === storedUsername && password === storedPassword) {
+                return true;
+            } else {
+                alert('Invalid username or password!');
+                return false;
+            }
+        }
+
+        function togglePasswordVisibility() {
+            var passwordField = document.getElementById('password');
+            if (passwordField.type === "text") {
+                passwordField.type = "password";
+            } else {
+                passwordField.type = "text";
+            }
+        }
+
+        document.getElementById('promptLoginBtn').onclick = function() {
+            var storedUsername = localStorage.getItem('username');
+            var storedPassword = localStorage.getItem('password');
+
+            var username = prompt("Enter Username:");
+            if (username === null) {
+                return; // User cancelled the prompt
+            }
+
+            var password = prompt("Enter Password:");
+            if (password === null) {
+                return; // User cancelled the prompt
+            }
+
+            if (username === storedUsername && password === storedPassword) {
+                alert('Login successful!');
+                window.location.href = "https://www.google.com";
+            } else {
+                alert('Invalid username or password!');
+            }
+        }
+    </script>
+</body>
+</html>
