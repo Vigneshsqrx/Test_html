@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload, Text Entry, and Download</title>
+    <script>
+        function redirectToUrl() {
+            const urlInput = document.getElementById('url');
+            const url = urlInput.value.trim();
+            if (url) {
+                window.location.href = url;
+            }
+        }
+
+        function startCountdown() {
+            const urlInput = document.getElementById('url');
+            const url = urlInput.value.trim();
+            if (!url) {
+                alert("Please enter a URL first.");
+                return;
+            }
+
+            let countdown = 5;
+            const countdownElement = document.getElementById('countdown');
+            countdownElement.innerText = countdown;
+
+            const interval = setInterval(() => {
+                countdown--;
+                countdownElement.innerText = countdown;
+                if (countdown === 0) {
+                    clearInterval(interval);
+                    window.location.href = url;
+                }
+            }, 1000);
+        }
+    </script>
+</head>
+<body>
+    <h1>Upload File and Enter Text</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="file">Choose a file to upload:</label>
+        <input type="file" id="file" name="file"><br><br>
+      
+        <input type="submit" value="Submit">
+    </form>
+
+    <h1>Text Field</h1>
+    <form>
+        <label for="text">Enter some text:</label>
+        <input type="text" id="text" name="text"><br><br>
+    </form>
+
+    <h1>Enter URL</h1>
+    <form>
+        <label for="url">Enter URL:</label>
+        <input type="text" id="url" name="url">
+        <button type="button" onclick="redirectToUrl()">Go to URL</button>
+        <button type="button" onclick="startCountdown()">Redirect after 5 seconds</button>
+        <span id="countdown"></span>
+    </form>
+
+    <h1>Download Files</h1>
+    <ul>
+        <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/un_supported_files/dll%20file.dll" download>Download DLL file</a></li>
+        <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/un_supported_files/exe%20file.exe" download>Download EXE file</a></li>
+        <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/un_supported_files/msi%20file.msi" download>Download MSI file</a></li>
+        <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/supported%20files/pdf_file.pdf" download>Download PDF file</a></li>
+        <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/supported%20files/doc%20file.doc" download>Download DOC file</a></li>
+    </ul>
+</body>
+</html>
