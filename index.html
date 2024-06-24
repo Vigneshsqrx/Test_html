@@ -74,108 +74,11 @@
         }
     </style>
     <script>
-        function redirectToUrl() {
-            const urlInput = document.getElementById('url');
-            const url = urlInput.value.trim();
-            if (url) {
-                window.location.href = url;
-            }
-        }
-
-        function startCountdown() {
-            const urlInput = document.getElementById('url');
-            const url = urlInput.value.trim();
-            if (!url) {
-                alert("Please enter a URL first.");
-                return;
-            }
-
-            let countdown = 5;
-            const countdownElement = document.getElementById('countdown');
-            countdownElement.innerText = countdown;
-
-            const interval = setInterval(() => {
-                countdown--;
-                countdownElement.innerText = countdown;
-                if (countdown === 0) {
-                    clearInterval(interval);
-                    window.location.href = url;
-                }
-            }, 1000);
-        }
-
         let storedUsername = '';
         let storedPassword = '';
 
         function login() {
-            const setUsername = document.getElementById('setUsername').value;
-            const setPassword = document.getElementById('setPassword').value;
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            const message = document.getElementById('message');
-
-            if (setUsername === '' || setPassword === '') {
-                message.textContent = 'Please set both username and password.';
-                message.style.display = 'block';
-                return;
-            } else {
-                storedUsername = setUsername;
-                storedPassword = setPassword;
-            }
-
-            if (username === '' || password === '') {
-                message.textContent = 'Username and password fields cannot be empty.';
-                message.style.display = 'block';
-            } else if (username !== storedUsername || password !== storedPassword) {
-                message.textContent = 'Incorrect username or password.';
-                message.style.display = 'block';
-            } else {
-                message.textContent = 'Login successful! You will be redirected to google.com.';
-                message.style.color = 'green';
-                message.style.display = 'block';
-                setTimeout(() => {
-                    window.location.href = 'https://www.google.com';
-                }, 2000);
-            }
-        }
-
-        function loginWithDialog() {
-            const setUsername = document.getElementById('setUsername').value;
-            const setPassword = document.getElementById('setPassword').value;
-            const message = document.getElementById('message');
-
-            if (storedUsername === '' && storedPassword === '') {
-                if (setUsername === '' || setPassword === '') {
-                    message.textContent = 'Please set both username and password.';
-                    message.style.display = 'block';
-                    return;
-                } else {
-                    storedUsername = setUsername;
-                    storedPassword = setPassword;
-                    message.textContent = 'Credentials set successfully. Please log in now.';
-                    message.style.color = 'green';
-                    message.style.display = 'block';
-                    return;
-                }
-            }
-
-            const username = prompt("Please enter your username:");
-            const password = prompt("Please enter your password:");
-
-            if (username === null || password === null || username === '' || password === '') {
-                message.textContent = 'Username and password fields cannot be empty.';
-                message.style.display = 'block';
-            } else if (username !== storedUsername || password !== storedPassword) {
-                message.textContent = 'Incorrect username or password.';
-                message.style.display = 'block';
-            } else {
-                message.textContent = 'Login successful! You will be redirected to google.com.';
-                message.style.color = 'green';
-                message.style.display = 'block';
-                setTimeout(() => {
-                    window.location.href = 'https://www.google.com';
-                }, 2000);
-            }
+            // Your login logic here
         }
     </script>
 </head>
@@ -210,20 +113,5 @@
         <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/supported%20files/pdf_file.pdf" download>Download PDF file</a></li>
         <li><a href="https://github.com/Vigneshsqrx/Download_interceptor_testing/raw/main/supported%20files/doc%20file.doc" download>Download DOC file</a></li>
     </ul>
-
-    <h1>Login</h1>
-    <form>
-        <label for="setUsername">Set Username:</label>
-        <input type="text" id="setUsername" placeholder="Set Username">
-        <label for="setPassword">Set Password:</label>
-        <input type="password" id="setPassword" placeholder="Set Password">
-        <label for="username">Username:</label>
-        <input type="text" id="username" placeholder="Username">
-        <label for="password">Password:</label>
-        <input type="password" id="password" placeholder="Password">
-        <button type="button" onclick="login()">Login</button>
-        <button type="button" onclick="loginWithDialog()">Login with Dialog</button>
-        <div class="message" id="message"></div>
-    </form>
 </body>
 </html>
