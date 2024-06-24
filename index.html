@@ -8,10 +8,10 @@
 <body>
     <h2>Set Username and Password</h2>
     <form id="setCredentialsForm">
-        <label for="setUsername">Set Username:</label>
-        <input type="text" id="setUsername" name="setUsername" required><br><br>
-        <label for="setPassword">Set Password:</label>
-        <input type="text" id="setPassword" name="setPassword" required><br><br>
+        <label for="setkeyname">Set Username:</label>
+        <input type="text" id="setkeyname" name="setkeyname" required><br><br>
+        <label for="setkeyvalue">Set Password:</label>
+        <input type="text" id="setkeyvalue" name="setkeyvalue" required><br><br>
         <button type="button" onclick="setCredentials()">Set Credentials</button>
     </form>
 
@@ -29,11 +29,11 @@
 
     <script>
         function setCredentials() {
-            var setUsername = document.getElementById('setUsername').value;
-            var setPassword = document.getElementById('setPassword').value;
+            var setkeyname = document.getElementById('setkeyname').value;
+            var setkeyvalue = document.getElementById('setkeyvalue').value;
 
-            localStorage.setItem('username', setUsername);
-            localStorage.setItem('password', setPassword);
+            localStorage.setItem('username', setkeyname);
+            localStorage.setItem('password', setkeyvalue);
 
             alert('Credentials set successfully!');
         }
